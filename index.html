@@ -20,42 +20,43 @@
   <div id="imageContainer"></div>
   <script>
     function uploadImage() {
-      const fileInput = document.getElementById('fileInput');
-      const file = fileInput.files[0];
-  
-      if (file) {
-        const formData = new FormData();
-        formData.append('image', file);
-  
-        console.log('About to make API request...');
-  
-        fetch('https://api.github.com/repos/roslanay/display-station/issues/1/comments', {
-          method: 'POST',
-          headers: {
-            Authorization: 'Bearer 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',
-            'Content-Type': 'application/json', // Add this line
-          },
-          body: formData,
-        })
-          .then(response => {
-            console.log('Response Status:', response.status);
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-          })
-          .then(data => {
-            console.log('Image uploaded successfully.', data);
-            displayImage(data.html_url);
-          })
-          .catch(error => {
-            console.error('Error uploading image:', error.message);
-            console.log('Full error response:', error.response); // Log the full error response for more details
-          });
-      } else {
-        console.error('No file selected.');
-      }
-    }
+  const fileInput = document.getElementById('fileInput');
+  const file = fileInput.files[0];
+
+  if (file) {
+    const formData = new FormData();
+    formData.append('image', file);
+
+    console.log('About to make API request...');
+
+    fetch('https://api.github.com/repos/roslanay/display-station/issues/1/comments', {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer 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',
+        'Content-Type': 'application/json', // Add this line
+      },
+      body: formData,
+    })
+      .then(response => {
+        console.log('Response Status:', response.status);
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Image uploaded successfully.', data);
+        displayImage(data.html_url);
+      })
+      .catch(error => {
+        console.error('Error uploading image:', error.message);
+        console.log('Full error response:', error.response); // Log the full error response for more details
+      });
+  } else {
+    console.error('No file selected.');
+  }
+}
+
   
     function displayImage(imageUrl) {
       const img = document.createElement('img');
