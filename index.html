@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Image Upload</title>
   <script src="https://cdn.jsdelivr.net/npm/quagga@0.12.1/dist/quagga.min.js"></script>
+  <style>
+    #imageContainer{
+        width: 100vw;
+        height: 100vh;
+        background-color: red;
+        display: flex;
+    }
+  </style>
 </head>
 <body>
   <input type="file" id="fileInput" accept="image/*">
@@ -20,6 +28,8 @@
         const formData = new FormData();
         formData.append('image', file);
 
+        console.log('About to make API request...');
+
         fetch('https://api.github.com/repos/roslanay/display-station/issues/1/comments', {
           method: 'POST',
           headers: {
@@ -28,13 +38,14 @@
           body: formData,
         })
           .then(response => {
+            console.log('Response Status:', response.status);
             if (!response.ok) {
               throw new Error(`HTTP error! Status: ${response.status}`);
             }
             return response.json();
           })
           .then(data => {
-            console.log('Image uploaded successfully.');
+            console.log('Image uploaded successfully.', data);
             displayImage(data.html_url);
           })
           .catch(error => {
