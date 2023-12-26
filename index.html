@@ -20,10 +20,10 @@
         const formData = new FormData();
         formData.append('image', file);
 
-        fetch('https://api.github.com/repos/roslanay/display-station/issues/#1/comments', {
+        fetch('https://api.github.com/repos/roslanay/display-station/issues/1/comments', {
           method: 'POST',
           headers: {
-            Authorization: 'Bearer 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',
+            Authorization: 'Bearer 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',
           },
           body: formData,
         })
